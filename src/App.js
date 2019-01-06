@@ -4,11 +4,17 @@ import './App.css';
 import { defaultMarkdown } from './strings.js';
 
 class App extends React.Component {
+  constructor (props){
+    super(props);
+    this.state ={
+      markdown: defaultMarkdown
+    }
+  }
   render() {
     return (
       <div className='app'>
-        <MarkdownInput />
-        <HtmlOutput />
+        <MarkdownInput markdown={this.state.markdown}/>
+        <HtmlOutput html={marked(this.state.markdown)}/>
       </div>
     );
   }
@@ -18,7 +24,7 @@ class MarkdownInput extends React.Component {
   render() {
     return (
       <textarea id='markdown-input'>
-        {defaultMarkdown}
+        {this.props.markdown}
       </textarea>
     );
   }
@@ -27,7 +33,7 @@ class MarkdownInput extends React.Component {
 class HtmlOutput extends React.Component {
   render() {
     return (
-      <div id='html-output' dangerouslySetInnerHTML={{ __html: marked(defaultMarkdown)}} />
+      <div id='html-output' dangerouslySetInnerHTML={{ __html: this.props.html}} />
     );
   }
 }
