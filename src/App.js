@@ -22,7 +22,7 @@ class App extends React.Component {
     return (
       <div className='app'>
         <MarkdownInput markdown={this.state.markdown} handleChange={this.handleMarkdownChange}/>
-        <HtmlOutput html={marked(this.state.markdown)} />
+        <HtmlOutput html={marked(this.state.markdown, {breaks: true, renderer})} />
       </div>
     );
   }
@@ -31,7 +31,7 @@ class App extends React.Component {
 class MarkdownInput extends React.Component {
   render() {
     return (
-      <textarea id='markdown-input' onChange={this.props.handleChange}>
+      <textarea id='editor' onChange={this.props.handleChange}>
         {this.props.markdown}
       </textarea>
     );
@@ -41,10 +41,17 @@ class MarkdownInput extends React.Component {
 class HtmlOutput extends React.Component {
   render() {
     return (
-      <div id='html-output' dangerouslySetInnerHTML={{ __html: this.props.html }} />
+      <div id='preview' dangerouslySetInnerHTML={{ __html: this.props.html }} />
     );
   }
 }
+
+//Make link open in new tab
+var renderer = new marked.Renderer();
+renderer.link = function(href, title, text) {
+    var link = marked.Renderer.prototype.link.call(this, href, title, text);
+    return link.replace("<a","<a target='_blank' ");
+};
 
 
 export default App;
