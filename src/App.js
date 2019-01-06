@@ -21,8 +21,8 @@ class App extends React.Component {
   render() {
     return (
       <div className='app'>
-        <MarkdownInput markdown={this.state.markdown} handleChange={this.handleMarkdownChange}/>
-        <HtmlOutput html={marked(this.state.markdown, {breaks: true, renderer})} />
+        <MarkdownInput markdown={this.state.markdown} handleChange={this.handleMarkdownChange} />
+        <HtmlOutput html={marked(this.state.markdown, { breaks: true, renderer })} />
       </div>
     );
   }
@@ -48,9 +48,9 @@ class HtmlOutput extends React.Component {
 
 //Make link open in new tab
 var renderer = new marked.Renderer();
-renderer.link = function(href, title, text) {
-    var link = marked.Renderer.prototype.link.call(this, href, title, text);
-    return link.replace("<a","<a target='_blank' ");
+renderer.link = function (href, title, text) {
+  var link = marked.Renderer.prototype.link.call(this, href, title, text);
+  return link.replace("<a", "<a target='_blank' ");
 };
 
 

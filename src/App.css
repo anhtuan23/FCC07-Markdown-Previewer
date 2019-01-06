@@ -27,3 +27,7 @@
 code, pre{
   background-color: rgb(226, 226, 226);
 }
+
+th, td {
+  border: solid 1px black;
+}
